@@ -1,0 +1,14 @@
+name: elnino
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - xarray
+  - zarr
+  - gcsfs
+  - dask
+  - cftime
+  - pandas
+  - numpy
+  - matplotlib
+  - ipykernel
