@@ -2,7 +2,7 @@
 
 Interactive D3 visualization of El Niño and La Niña events, built on CMIP6 AMIP (NCAR CESM2) climate model data. DSC 106 Project 3, UC San Diego.
 
-**Team:** _names here_
+**Team:** Adam Hamadene, Dawai Yu, Emiliano Franco, Justin James
 
 ## Data
 
