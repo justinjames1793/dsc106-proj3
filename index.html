@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Does El Niño Bring Rain to California?</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Does El Niño Bring Rain to California?</h1>
+    <p class="dek">Every time a strong El Niño shows up, Californians hear the same forecast: get ready for a wet winter. We looked at 65 years of climate data to see how often that's true.</p>
+    <p class="byline">Adam Hamadene, Dawai Yu, Emiliano Franco, Justin James · DSC 106, UC San Diego</p>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p>
+        Along the equator, the Pacific's trade winds normally push warm surface water west toward Indonesia.
+        Every few years they weaken and the warm water drifts back east toward the Americas: that's <b class="nino">El Niño</b>.
+        When they strengthen instead, the eastern Pacific gets even colder: that's <b class="nina">La Niña</b>.
+        Their strength is measured by the <b>Oceanic Niño Index (ONI)</b>: how many degrees warmer or colder than average the central Pacific is.
+      </p>
+    </section>
+
+    <section id="vis" aria-label="Interactive visualization">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>El Niño strength vs. California's winter rain, 1950–2014</h2>
+            <p class="hint">Drag the bar (or click anywhere) to pick a month · hover for details · ← → keys step one month</p>
+          </div>
+          <div class="panel-tools">
+            <button id="play" class="btn">▶ Play</button>
+            <select id="event-select" aria-label="Jump to an event">
+              <option value="">Jump to an El Niño / La Niña…</option>
+            </select>
+          </div>
+        </div>
+        <svg id="timeline"></svg>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h2 id="map-title"></h2>
+            <p id="readout" class="readout"></p>
+          </div>
+          <div class="seg" role="radiogroup" aria-label="Map variable">
+            <button data-var="sst" class="active">Ocean temperature</button>
+            <button data-var="pr">Rainfall</button>
+          </div>
+        </div>
+        <div id="map-wrap">
+          <canvas id="map-canvas"></canvas>
+          <svg id="map-overlay"></svg>
+        </div>
+        <div class="map-foot">
+          <svg id="legend"></svg>
+          <p id="map-caption" class="caption"></p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>So, does El Niño bring more rain?</h2>
+            <p class="hint">Each dot is one California winter (November–March). Hover for details, click to show that winter above.</p>
+          </div>
+        </div>
+        <div class="answer">
+          <svg id="scatter"></svg>
+          <div id="answer-text" class="answer-text"></div>
+        </div>
+      </div>
+    </section>
+
+    <article class="writeup">
+      <h2>About the data</h2>
+      <p>
+        We use the <b>CMIP6 AMIP</b> experiment from NCAR's <b>CESM2</b> climate model (run <code>r1i1p1f1</code>, 1950–2014),
+        read from the public Google Cloud bucket <code>gs://cmip6</code>. In an AMIP run the model is given the
+        <b>real, observed ocean temperatures</b> month by month, so every El Niño and La Niña happens in the year it really did.
+        The model then simulates how the atmosphere responds. That means the <b>ocean temperatures are observations</b>,
+        while the <b>rainfall is the model's simulated response</b> to them, not rain-gauge measurements.
+      </p>
+      <h3>Data transformations</h3>
+      <ul>
+        <li><b>Ocean temperature map:</b> color is the difference from the 1981–2010 average for the same calendar month. Hovering shows the actual temperature (that average plus the difference).</li>
+        <li><b>Rainfall map:</b> color is the month's rain as a percent of the 1981–2010 average for that month, on a log scale so that half the usual rain and twice the usual rain look equally strong. Places that are normally almost dry that month (under 0.3 mm/day) are left blank, since a percentage there isn't meaningful.</li>
+        <li><b>ONI and El Niño / La Niña labels:</b> the ONI is the 3-month average temperature difference over 5°S–5°N, 170°W–120°W. Following NOAA, a month is El Niño (La Niña) when the ONI stays at or above +0.5 °C (at or below −0.5 °C) for at least 5 months in a row.</li>
+        <li><b>California winter rain:</b> rainfall averaged over the model grid cells inside California's outline and added up over the November–March wet season, shown as a percent of the average 1981–82 to 2009–10 winter. Each winter's El Niño strength is its December–February average ONI.</li>
+        <li><b>Map grid:</b> the model's ~1° grid was averaged into ~3.8° × 5° cells to keep the files small enough for a web page, then smoothly interpolated between cell centers for display.</li>
+        <li><b>Limitations:</b> the data ends in 2014, so it misses the 2015–16 and 2023–24 El Niños. The rainfall comes from a single model run, so part of it is random simulated weather rather than an El Niño signal.</li>
+      </ul>
+      <p>
+        Our exploratory notebooks are in the <a href="https://github.com/justinjames1793/dsc106-proj3/tree/main/exploratory"><code>exploratory/</code></a>
+        folder of the <a href="https://github.com/justinjames1793/dsc106-proj3">GitHub repository</a>.
+      </p>
+    </article>
+  </main>
+
+  <footer>
+    DSC 106 Project 3 · Data: CMIP6 CESM2 AMIP (NCAR), via Google Cloud Public Datasets · Coastlines: Natural Earth via world-atlas · California outline: US Census via us-atlas
+  </footer>
+  <div id="tooltip" class="tooltip" role="status"></div>
+</body>
+</html>
