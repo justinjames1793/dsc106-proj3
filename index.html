@@ -62,20 +62,6 @@
         </div>
       </div>
 
-      <div class="panel">
-        <div class="panel-head">
-          <div>
-            <h2>So, does El Niño bring more rain?</h2>
-            <p class="hint">Each dot is one California winter (November–March). Hover for details, click to show that winter above.</p>
-          </div>
-        </div>
-        <div class="answer">
-          <svg id="scatter"></svg>
-          <div id="answer-text" class="answer-text"></div>
-        </div>
-      </div>
-    </section>
-
     <article class="writeup">
       <h2>About the data</h2>
       <p>
@@ -99,6 +85,76 @@
         folder of the <a href="https://github.com/justinjames1793/dsc106-proj3">GitHub repository</a>.
       </p>
     </article>
+
+    <article class="writeup">
+  <h2>Writeup: Design Rationale</h2>
+  <p>
+    Our visualization explores whether El Niño brings more rain to California
+    by allowing readers to compare El Niño and La Niña conditions with
+    California’s simulated winter rainfall from 1950–2014. We combined a
+    historical timeline with an interactive map so readers can identify events
+    over time and examine the geographic conditions associated with a selected
+    month.
+  </p>
+
+  <h2>Visual Encodings</h2>
+  <p>
+    The timeline uses bars as marks: horizontal position encodes time, while
+    vertical position encodes the direction and magnitude of the Oceanic Niño
+    Index (ONI). The zero baseline allows readers to compare values along a
+    common scale using the length of the bars. Bars above zero represent
+    warmer-than-average conditions, while bars below zero represent
+    colder-than-average conditions.
+  </p>
+  <p>
+    We changed the plot’s original colors to a darker blue and red to improve
+    discriminability between El Niño and La Niña conditions. Using blue for cold
+    and red for warm is an intuitive association. Color distinguishes the
+    climate categories, while position and length communicate magnitude.
+    We added the rainfall plot directly below the El Niño strength graph and
+    aligned the two along a shared time axis. This reduces the cognitive load
+    of finding the same period between two separate graphs, allowing readers
+    to compare corresponding periods easily. Similarly, the 100% reference
+    line provides a common baseline for comparing wetter-than-normal and
+    drier-than-normal winters.
+  </p>
+  <p>
+    The map uses geographic position to show where conditions occur and a
+    diverging color scale to represent anomalies in ocean temperature. Its
+    date corresponds to the time selected on the timeline. Blue and red
+    distinguish the two deviations from the average: colder and warmer,
+    respectively. The light midpoint represents values close to zero,
+    maintaining the same color associations used in the timeline. California
+    is highlighted because it is the central focus of our question, while
+    major geographic locations are labeled for reference. The rainfall map
+    uses a similar approach, with darker orange-brown encoding less rainfall
+    than normal and darker blue encoding more rainfall than normal.
+  </p>
+
+  <h2>Interactive Design</h2>
+  <p>
+    The timeline and map are coordinated views: selecting a month in the
+    timeline updates the geographic display. Hover tooltips provide precise
+    values without crowding the display, and arrow keys allow readers to
+    navigate changing conditions one month at a time. In addition, we added
+    a dropdown menu containing selected El Niño and La Niña peaks.
+    Selecting an event jumps to that period.
+  </p>
+
+  <h2>Design Process</h2>
+  <p>
+    Our development process involved preparing the data, building the timeline
+    and map, connecting their interactions, and refining the presentation.
+    Adam worked on <strong>planning, the dropdown feature, and the rainfall
+    map</strong>. David worked on <strong>planning, creating the tooltips,
+    and editing</strong>. Emiliano worked on <strong>planning, data cleaning,
+    and the write-up</strong>. Justin worked on <strong>data cleaning,
+    implementing the link between the geospatial maps, and building the
+    timeline</strong>. We spent about 12 hours developing the application.
+    The most time-consuming aspects were working with the geospatial data
+    and building the timeline because of the features we added to it.
+  </p>
+</article>
   </main>
 
   <footer>
